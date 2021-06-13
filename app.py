@@ -16,7 +16,7 @@ banner = colored("""
   ░   ▒      ░   ░ ░  ▒ ░░      ░      ░      ░ ░   ░ ░ ░ ░ ▒   ░ ░  ░
       ░  ░         ░  ░         ░      ░  ░         ░     ░ ░     ░
                                                                   ░
-""", 'blue')
+""", 'cyan')
 
 print(banner)
 
@@ -37,6 +37,7 @@ if(not len(names)):
 #getting the specific season or type
 os.system('clear')
 print(banner)
+print(colored(f"Search topic: {name}\n", 'green', attrs=['bold']))
 print(colored("Choose the correct series and season:\n", 'yellow'))
 d = {}
 n = {}
@@ -48,12 +49,12 @@ for name in names:
     print(colored(f"{index}) {ele['title']}", 'green'))
     index += 1
 
-num = input(colored("\nEnter your choice: ", 'yellow'))
+num = input(colored(f"\nEnter your choice(1-{index-1}): ", 'yellow'))
 
 #scrapping the specific anime for episode selection
 os.system("clear")
 print(banner)
-print(colored(f"Chosen anime: {n[int(num)]}", 'green'))
+print(colored(f"Chosen anime: {n[int(num)]}", 'green', attrs=['bold']))
 url = "https://gogoanime.vc"+d[int(num)]
 
 r = requests.get(url)
