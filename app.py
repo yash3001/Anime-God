@@ -1,10 +1,11 @@
 import requests
 import os
 from bs4 import BeautifulSoup
+from termcolor import colored
 
 os.system("clear")
 
-banner = """
+banner = colored("""
  ▄▄▄       ███▄    █  ██▓ ███▄ ▄███▓▓█████      ▄████  ▒█████  ▓█████▄
 ▒████▄     ██ ▀█   █ ▓██▒▓██▒▀█▀ ██▒▓█   ▀     ██▒ ▀█▒▒██▒  ██▒▒██▀ ██▌
 ▒██  ▀█▄  ▓██  ▀█ ██▒▒██▒▓██    ▓██░▒███      ▒██░▄▄▄░▒██░  ██▒░██   █▌
@@ -15,14 +16,14 @@ banner = """
   ░   ▒      ░   ░ ░  ▒ ░░      ░      ░      ░ ░   ░ ░ ░ ░ ▒   ░ ░  ░
       ░  ░         ░  ░         ░      ░  ░         ░     ░ ░     ░
                                                                   ░
-"""
+""", 'blue')
 
 print(banner)
 
 #scrapping the anime names after searching
 url = "https://gogoanime.vc//search.html?keyword="
 
-name = input("Enter the name of the anime: ")
+name = input(colored("Enter the name of the anime: ", 'yellow'))
 url = url+name
 
 r = requests.get(url)
@@ -34,18 +35,25 @@ if(not len(names)):
     exit
 
 #getting the specific season or type
+os.system('clear')
+print(banner)
+print(colored("Choose the correct series and season:\n", 'yellow'))
 d = {}
+n = {}
 index = 1
 for name in names:
     ele = name.find("p", class_="name").find("a")
     d[index] = ele["href"]
-    print(f"{index}) {ele['title']}")
+    n[index] = ele['title']
+    print(colored(f"{index}) {ele['title']}", 'green'))
     index += 1
 
-num = input("\nEnter your choice: ")
+num = input(colored("\nEnter your choice: ", 'yellow'))
 
 #scrapping the specific anime for episode selection
 os.system("clear")
+print(banner)
+print(colored(f"Chosen anime: {n[int(num)]}", 'green'))
 url = "https://gogoanime.vc"+d[int(num)]
 
 r = requests.get(url)
@@ -55,7 +63,7 @@ episodes = soup.find("div", class_="anime_video_body").find("ul").find("li").fin
 ep_start = int(episodes['ep_start'])
 ep_end = int(episodes['ep_end'])
 
-ep_num = input(f"\nChoose an episode({ep_start+1}-{ep_end}): ")
+ep_num = input(colored(f"\nChoose an episode({ep_start+1}-{ep_end}): ", 'yellow'))
 
 series_name = url.split('/')[-1]
 
