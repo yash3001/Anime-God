@@ -1,5 +1,8 @@
 import requests
+import os
 from bs4 import BeautifulSoup
+
+os.system("clear")
 
 #scrapping the anime names after searching
 url = "https://gogoanime.vc//search.html?keyword="
@@ -27,6 +30,7 @@ for name in names:
 num = input("\nEnter your choice: ")
 
 #scrapping the specific anime for episode selection
+os.system("clear")
 url = "https://gogoanime.vc"+d[int(num)]
 
 r = requests.get(url)
@@ -71,7 +75,5 @@ for div in divs[:-1]:
 url = d[1]
 
 #running the anime on mpv
-import os
-
 cmd = f"mpv {url}"
 os.system(cmd)
